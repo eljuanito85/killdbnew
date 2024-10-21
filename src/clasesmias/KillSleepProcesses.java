@@ -5,11 +5,12 @@
  */
 package clasesmias;
 
-
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,37 +18,90 @@ import java.sql.Statement;
  */
 public class KillSleepProcesses {
     // Configuración de la conexión a la base de datos
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/tu_base_de_datos";
-    private static final String JDBC_USER = "tu_usuario";
-    private static final String JDBC_PASSWORD = "tu_contraseña";
 
     public static void main(String[] args) {
-        try {
-            // Conexión a la base de datos
-            Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-            
-            Statement stmt = conn.createStatement();
 
-            // Consulta para obtener los procesos SLEEP que llevan más de 5400 segundos
-            String query = "SELECT id FROM information_schema.processlist WHERE command = 'Sleep' AND time > 5400";
-            ResultSet rs = stmt.executeQuery(query);
+        String jdbc_url = "jdbc:mariadb://localhost/killsleepprocesses";
+        String jdbc_user = "root";
+        String jdbc_password = "";
 
-            // Ejecutar KILL para cada proceso encontrado
-            while (rs.next()) {
-                int processId = rs.getInt("id");
-                System.out.println("Matando proceso SLEEP con id: " + processId);
-                stmt.execute("KILL " + processId);
-            }
+        ArchivoTexto txt = new ArchivoTexto();
+        String nomArch = "config.txt";
 
-            // Cerrar la conexión y los recursos
-            rs.close();
-            stmt.close();
-            conn.close();
-            System.out.println("Conexiones SLEEP de más de 2 horas matadas con éxito.");
-        } catch (Exception e) {
-            e.printStackTrace();
+        ArrayList<String> lineas = new ArrayList<>();
+        lineas = txt.lineasArch(nomArch);
+
+        int longitud = lineas.size();
+        String aux = "";
+
+        File carpResultados = new File("resultados");
+        if (!carpResultados.exists()) {
+            carpResultados.mkdir();
         }
+
+        String nombreArchResult = String.valueOf(System.currentTimeMillis()) + ".txt";
+
+        File resultados = new File(nombreArchResult);
+
+        for (int i = 0; i < longitud; i++) {
+
+            aux = lineas.get(i);
+
+            if (aux.startsWith("jdbc:mysql")) {
+                String arrayAux[];
+                arrayAux = aux.split(", ");
+
+                if (arrayAux.length == 3) {
+                    jdbc_url = arrayAux[0];
+                    jdbc_user = arrayAux[1];
+                    jdbc_password = arrayAux[2];
+
+                    try {
+                        // Conexión a la base de datos
+                        Connection conn = DriverManager.getConnection(jdbc_url, jdbc_user, jdbc_password);
+
+                        Statement stmt = conn.createStatement();
+
+                        // Consulta para obtener los procesos SLEEP que llevan más de 5400 segundos
+                        String query = "SELECT id FROM information_schema.processlist WHERE command = 'Sleep' AND time > 5400";
+                        ResultSet rs = stmt.executeQuery(query);
+
+                        // Ejecutar KILL para cada proceso encontrado
+                        while (rs.next()) {
+                            int processId = rs.getInt("id");
+                            System.out.println("Matando proceso SLEEP con id: " + processId);
+                            stmt.execute("KILL " + processId);
+                        }
+
+                        // Cerrar la conexión y los recursos
+                        rs.close();
+                        stmt.close();
+                        conn.close();
+                        System.out.println("Conexiones SLEEP de más de 1:30 h cerradas con éxito.");
+                        txt.Escribir(resultados, aux);
+                        txt.Escribir(resultados, "Conexiones SLEEP de más de 1:30 h cerradas con éxito.");
+                        txt.Escribir(resultados, "--------------------------------------------------------");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        txt.Escribir(resultados, aux);
+                        txt.Escribir(resultados, "Error " + e);
+                        txt.Escribir(resultados, "--------------------------------------------------------");
+                    }
+
+                } else {
+                    txt.Escribir(resultados, aux);
+                    txt.Escribir(resultados, "Error de arrayAux");
+                    txt.Escribir(resultados, "--------------------------------------------------------");
+                }
+
+            } else {
+                txt.Escribir(resultados, aux);
+                txt.Escribir(resultados, "No empieza con jdbc");
+                txt.Escribir(resultados, "--------------------------------------------------------");
+            }
+        }
+
     }
 
-    
 }

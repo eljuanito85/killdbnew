@@ -1,0 +1,27 @@
+jdbc:mysql://localhost:3306/tu_base_de_datos, usuario, contrasena
+Error java.sql.SQLException: Access denied for user 'usuario'@'localhost' (using password: YES)
+--------------------------------------------------------
+
+No empieza con jdbc
+--------------------------------------------------------
+jdbc:mysql://localhost:3306/tu_base_de_datos, usuario, contrasena
+Error java.sql.SQLException: Access denied for user 'usuario'@'localhost' (using password: YES)
+--------------------------------------------------------
+
+No empieza con jdbc
+--------------------------------------------------------
+jdbc:mysql://localhost:3306/tu_base_de_datos, usuario, contrasena
+Error java.sql.SQLException: Access denied for user 'usuario'@'localhost' (using password: YES)
+--------------------------------------------------------
+
+No empieza con jdbc
+--------------------------------------------------------
+jdbc:mysql://localhost:3306/tu_base_de_datos, usuario, contrasena
+Error java.sql.SQLException: Access denied for user 'usuario'@'localhost' (using password: YES)
+--------------------------------------------------------
+
+No empieza con jdbc
+--------------------------------------------------------
+jdbc:mysql://localhost:3306/tu_base_de_datos, usuario, contrasena
+Error java.sql.SQLException: Access denied for user 'usuario'@'localhost' (using password: YES)
+--------------------------------------------------------
