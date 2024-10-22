@@ -39,7 +39,7 @@ public class KillSleepProcesses {
             carpResultados.mkdir();
         }
 
-        String nombreArchResult = String.valueOf(System.currentTimeMillis()) + ".txt";
+        String nombreArchResult = "resultados/" + String.valueOf(System.currentTimeMillis()) + ".txt";
 
         File resultados = new File(nombreArchResult);
 
@@ -96,9 +96,15 @@ public class KillSleepProcesses {
                 }
 
             } else {
-                txt.Escribir(resultados, aux);
-                txt.Escribir(resultados, "No empieza con jdbc");
-                txt.Escribir(resultados, "--------------------------------------------------------");
+                if (!aux.equals("")) {
+                    txt.Escribir(resultados, aux);
+                    txt.Escribir(resultados, "No empieza con jdbc");
+                    txt.Escribir(resultados, "--------------------------------------------------------");
+                } else {
+                    txt.Escribir(resultados, aux);
+                    txt.Escribir(resultados, "La línea está vacía");
+                    txt.Escribir(resultados, "--------------------------------------------------------");
+                }
             }
         }
 
