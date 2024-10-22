@@ -1,7 +1,6 @@
-jdbc:mysql://localhost:3306/killsleepprocesses, root,  
+jdbc:mysql://localhost:3307/corralon, root, 24.mailen.08
 
-jdbc:mysql://localhost:3306/killsleepprocesses, root,  
+jdbc:mysql://localhost:3307/matafuegos, root, 24.mailen.08
 
-jdbc:mysql://localhost:3306/killsleepprocesses, root,  
+jdbc:mysql://localhost:3307/super, root, 24.mailen.08
 
-jdbc:mysql://localhost:3306/killsleepprocesses, root,  

@@ -21,9 +21,9 @@ public class KillSleepProcesses {
 
     public static void main(String[] args) {
 
-        String jdbc_url = "jdbc:mariadb://localhost/killsleepprocesses";
-        String jdbc_user = "root";
-        String jdbc_password = "";
+        String jdbc_url;
+        String jdbc_user;
+        String jdbc_password;
 
         ArchivoTexto txt = new ArchivoTexto();
         String nomArch = "config.txt";
@@ -78,13 +78,13 @@ public class KillSleepProcesses {
                         stmt.close();
                         conn.close();
                         System.out.println("Conexiones SLEEP de más de 1:30 h cerradas con éxito.");
-                        txt.Escribir(resultados, aux);
+                        txt.Escribir(resultados, jdbc_url);
                         txt.Escribir(resultados, "Conexiones SLEEP de más de 1:30 h cerradas con éxito.");
                         txt.Escribir(resultados, "--------------------------------------------------------");
 
                     } catch (Exception e) {
                         e.printStackTrace();
-                        txt.Escribir(resultados, aux);
+                        txt.Escribir(resultados, jdbc_url);
                         txt.Escribir(resultados, "Error " + e);
                         txt.Escribir(resultados, "--------------------------------------------------------");
                     }

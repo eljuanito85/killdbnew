@@ -1,0 +1,18 @@
+jdbc:mysql://localhost:3307/corralon
+Conexiones SLEEP de más de 1:30 h cerradas con éxito.
+--------------------------------------------------------
+
+La línea está vacía
+--------------------------------------------------------
+jdbc:mysql://localhost:3307/matafuegos
+Conexiones SLEEP de más de 1:30 h cerradas con éxito.
+--------------------------------------------------------
+
+La línea está vacía
+--------------------------------------------------------
+jdbc:mysql://localhost:3307/super
+Conexiones SLEEP de más de 1:30 h cerradas con éxito.
+--------------------------------------------------------
+
+La línea está vacía
+--------------------------------------------------------
