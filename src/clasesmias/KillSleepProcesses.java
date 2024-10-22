@@ -61,6 +61,7 @@ public class KillSleepProcesses {
                         Connection conn = DriverManager.getConnection(jdbc_url, jdbc_user, jdbc_password);
 
                         Statement stmt = conn.createStatement();
+                        Statement killStmt = conn.createStatement(); // Nuevo Statement para el KILL
 
                         // Consulta para obtener los procesos SLEEP que llevan más de 5400 segundos
                         String query = "SELECT id FROM information_schema.processlist WHERE command = 'Sleep' AND time > 5400";
@@ -70,12 +71,14 @@ public class KillSleepProcesses {
                         while (rs.next()) {
                             int processId = rs.getInt("id");
                             System.out.println("Matando proceso SLEEP con id: " + processId);
-                            stmt.execute("KILL " + processId);
+                            //stmt.execute("KILL " + processId);
+                            killStmt.execute("KILL " + processId); // Usamos un Statement diferente
                         }
 
                         // Cerrar la conexión y los recursos
                         rs.close();
                         stmt.close();
+                        killStmt.close();
                         conn.close();
                         System.out.println("Conexiones SLEEP de más de 1:30 h cerradas con éxito.");
                         txt.Escribir(resultados, jdbc_url);
